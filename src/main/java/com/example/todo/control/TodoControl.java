@@ -18,12 +18,12 @@ public class TodoControl {
         return "api todo:prioridades funcionando";
     }
 
-    @GetMapping("/listar")
+    @GetMapping("/itens/listar")
     public @ResponseBody Iterable<TodoModel> listar() {
         return repositorio.findAll();
     }
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/itens/cadastrar")
     public TodoModel cadastrar(@RequestBody TodoModel atividade) {
         return repositorio.save(atividade);
     }
@@ -33,17 +33,16 @@ public class TodoControl {
         return repositorio.findById(id);
     }
 
-    @DeleteMapping("/remover")
-    public @ResponseBody void remover() {
+    @DeleteMapping("/tarefa/remover")
+    public @ResponseBody void removerTudo() {
         this.repositorio.deleteAll();
     }
-    /*
-    @DeleteMapping("/remover/{id}")
-    public @ResponseBody void remover(@PathVariable Long id){
-        TodoModel aem = filtrarTarefa(id);
-        this.repositorio.delete(aem);
-    }*/
-    @PutMapping("/alterar")
+
+    @DeleteMapping("/tarefa/remover/{id}")
+    public @ResponseBody void remover(@RequestBody TodoModel tarefa){
+        this.repositorio.delete(tarefa);
+    }
+    @PutMapping("/tarefa/alterar")
     public  TodoModel Alterar(@RequestBody TodoModel tarefa){
         return repositorio.save(tarefa);
 
