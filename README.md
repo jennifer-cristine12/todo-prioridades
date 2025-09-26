@@ -22,4 +22,13 @@ Diagrama de classe
 - lombok
 - H2 database
 
+## Endpoints
+| Método | Endpoint           | Descrição                                                       |
+|--------|--------------------|------------------------------------------------------------------|
+| GET    | `/itens/listar`    | Retorna a lista completa de tarefas cadastradas                 |
+| POST   | `/itens/cadastrar` | Cadastra uma nova tarefa com os dados enviados                  |
+| GET    | `/tarefa/{id}`     | Consulta os detalhes de uma tarefa específica pelo ID           |
+| DELETE | `/tarefa/remover`  | Remove uma tarefa existente com base no ID fornecido            |
+| PUT    | `/tarefa/alterar`  | Atualiza os dados de uma tarefa existente                       |
+
 
