@@ -28,7 +28,8 @@ Diagrama de classe
 | GET    | `/itens/listar`    | Retorna a lista completa de tarefas cadastradas                 |
 | POST   | `/itens/cadastrar` | Cadastra uma nova tarefa com os dados enviados                  |
 | GET    | `/tarefa/{id}`     | Consulta os detalhes de uma tarefa específica pelo ID           |
-| DELETE | `/tarefa/remover`  | Remove uma tarefa existente com base no ID fornecido            |
+| DELETE | `/tarefa/remover/{id}`  | Remove uma tarefa existente com base no ID fornecido            |
+| DELETE | `/tarefa/remover`  | Remove todas as tarefas            |
 | PUT    | `/tarefa/alterar`  | Atualiza os dados de uma tarefa existente                       |
 
 
