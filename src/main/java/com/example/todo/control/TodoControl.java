@@ -13,9 +13,15 @@ public class TodoControl {
     @Autowired
     private TodoRepository repositorio;
 
-    @GetMapping("/")
-    public String boasVindas() {
-        return "api todo:prioridades funcionando";
+
+
+    @GetMapping("/tarefa/{id}")
+    public @ResponseBody Optional<TodoModel> filtrarTarefa(@PathVariable long id) {
+        return repositorio.findById(id);
+    }
+    @GetMapping("/tarefa/prioridade/{id}")
+    public @ResponseBody String filtrarPrioridade(@PathVariable String prioridade) {
+        return repositorio.findByPrioridade(prioridade);
     }
 
     @GetMapping("/itens/listar")
@@ -26,11 +32,6 @@ public class TodoControl {
     @PostMapping("/itens/cadastrar")
     public TodoModel cadastrar(@RequestBody TodoModel atividade) {
         return repositorio.save(atividade);
-    }
-
-    @GetMapping("/tarefa/{id}")
-    public @ResponseBody Optional<TodoModel> filtrarTarefa(@PathVariable long id) {
-        return repositorio.findById(id);
     }
 
     @DeleteMapping("/tarefa/remover")

@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface TodoRepository extends CrudRepository<TodoModel, Long> {
-
+String findByPrioridade (String prioridade);
     void delete(TodoModel tarefa);
 }
