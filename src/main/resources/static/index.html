@@ -41,15 +41,15 @@
             <p>Adicione sua tarefa</p>
 
 
-            <label for="adicionar" >Nome da tarefa
-                <Input type="text" id="adicionar"
-                       placeholder="o que você vai fazer" required>
+            <label for="todo-input" >Nome da tarefa
             </label>
-                <label for="descricao" >Descrição da tarefa
-<textarea id="descricao"
-          placeholder="descrição (opcional)">
-</textarea>
+            <Input type="text" id="todo-input"
+                   placeholder="o que você vai fazer" required>
+            <label for="descricao" >Descrição da tarefa
                 </label>
+            <textarea id="descricao"
+                      placeholder="descrição (opcional)">
+</textarea>
             <label for="seletor">Prioridade</label>
                     <select id="seletor">
                         <option selected disabled>Selecione o nível de prioridade</option>
@@ -85,12 +85,23 @@
                 </div>
 
                 <div id="filter">
+
                   <h4>Filtrar:</h4>
+                    <div id="separator">
                   <select id="filter-select">
                     <option value="all">Todos</option>
                     <option value="done">Feitos</option>
                     <option value="todo">A fazer</option>
                   </select>
+
+
+
+                    <select id="filter-priority">
+                    <option value="Alta">Alta</option>
+                    <option value="Media">Média</option>
+                    <option value="Baixa">Baixa</option>
+                  </select>
+                    </div>
                 </div>
               </div>
 
