@@ -1,3 +1,5 @@
+//Link
+const API = "http://localhost:8091"
 //selecao de elementos
 const todoForm = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo-input");
@@ -10,28 +12,83 @@ const eraseBtn = document.querySelector("#erase-button");
 const filterBtn = document.querySelector("#filter-select");
 let oldInputValue;
 //Funcoes
+
+//carregar
+async function carregarLista() {
+    try {
+        const resposta = await fetch(API + "/itens/listar")
+        if (!resposta.ok) throw new Error("Erro: não é possivel carregar a lista")
+        const lista = await resposta.json()
+        exibirLista(lista)
+
+    } catch (error) {
+
+    }
+}
+
+function exibirLista(lista) {
+    lista.map(tarefa => {
+        const todo = document.createElement("div");
+        todo.classList.add("todo");
+        switch (tarefa.prioridade) {
+            case "Alta":
+                todo.classList.add("high");
+                break;
+            case "Media":
+                todo.classList.add("medium");
+                break;
+            case "Baixa":
+                todo.classList.add("low");
+                break;
+
+        }
+        if(tarefa.estaConcluida){
+            todo.classList.add("done")
+        }else{
+            todo.classList.remove("done")
+        }
+        todo.innerHTML = `
+            <h3>${tarefa.nome}</h3>
+            <p>${tarefa.descricao}</p>
+            
+            <button class="finish-todo">
+                <i class="fa-solid fa-check"></i>
+            </button><button class="edit-todo">
+            <i class="fa-solid fa-pen"></i></button>
+            <button class="remove-todo">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            `
+        todoList.append(todo)
+
+    })
+
+
+}
+
 const saveTodo = (text) => {
-    const todo = document.createElement("div");
-    todo.classList.add("todo");
 
-    const todoTitle = document.createElement("h3");
-    todoTitle.innerText = text;
-    todo.appendChild(todoTitle);
 
-    const doneBtn = document.createElement("button");
-    doneBtn.classList.add("finish-todo");
-    doneBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-    todo.appendChild(doneBtn);
+    /*
+        const todoTitle = document.createElement("h3");
+        todoTitle.innerText = text;
+        todo.appendChild(todoTitle);
 
-    const editBtn = document.createElement("button");
-    editBtn.classList.add("edit-todo");
-    editBtn.innerHTML = '<i class="fa-solid fa-pen"</i>';
-    todo.appendChild(editBtn);
+        const doneBtn = document.createElement("button");
+        doneBtn.classList.add("finish-todo");
+        doneBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        todo.appendChild(doneBtn);
 
-    const removeBtn = document.createElement("button");
-    removeBtn.classList.add("remove-todo");
-    removeBtn.innerHTML = '<i class="fa-solid fa-xmark"</i>';
-    todo.appendChild(removeBtn);
+        const editBtn = document.createElement("button");
+        editBtn.classList.add("edit-todo");
+        editBtn.innerHTML = '<i class="fa-solid fa-pen"</i>';
+        todo.appendChild(editBtn);
+
+        const removeBtn = document.createElement("button");
+        removeBtn.classList.add("remove-todo");
+        removeBtn.innerHTML = '<i class="fa-solid fa-xmark"</i>';
+        todo.appendChild(removeBtn);
+    */
 
     todoList.appendChild(todo);
 
@@ -53,6 +110,7 @@ const updateTodo = (text) => {
     });
 };
 //Eventos
+document.addEventListener("DOMContentLoaded", carregarLista);
 todoForm.addEventListener("submit", (e) => {
     e.preventDefault();
     console.clear();
