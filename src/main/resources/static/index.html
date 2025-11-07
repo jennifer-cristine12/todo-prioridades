@@ -1,20 +1,4 @@
-<!--Index. Html-->
-<!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-        <title>Todo prioridades</title>
-        <link rel="stylesheet" src="/style/style.css"></link>
-        <script src="/script/script.js" defer></script>
-    </head>
-    <body>
-    <!--formulário para criar tarefa-->
-    <form method="post">
 
-    </form>
-    <!--formulário para alterar tarefa-->
-    <!--container aonde vai ficar a lista de tarefas-->
-    </body>
-    </html>
     <!DOCTYPE html>
     <html lang="pt-br">
     <head>
@@ -38,7 +22,7 @@
             <h1>Todo avançado</h1>
         </header>
         <form id="todo-form">
-            <p>Adicione sua tarefa</p>
+            <p id="mode">Adicione sua tarefa</p>
             <label for="todo-input" >Nome da tarefa
             </label>
             <input type="text" id="todo-input"
@@ -55,22 +39,18 @@
                         <option>Media</option>
                         <option>Baixa</option>
                     </select>
-            <button type="submit">
+            <button  id="add">
                 <i class="fa-thin fa-plus"></i>
             </button>
-    </div>
-        </form>
-        <form id="edit-form" class="hide">
-            <p>Edite a sua tarefa</p>
-            <div class="form-control">
-                <input type="text" id="edit-input" />
-                <button type="submit">
+            <div class="form-control hide">
+                <button type="submit" >
                     <i class="fa-solid fa-check-double"></i>
                 </button>
+                <button id="cancel-edit-btn">Cancelar</button>
             </div>
-            <button id="cancel-edit-btn">Cancelar</button>
-        </form>
 
+        </form>
+    </div>
               <div id="toolbar" >
                 <div id="search">
                   <h4>Pesquisar</h4>

@@ -3,14 +3,22 @@ const API = "http://localhost:8091"
 //selecao de elementos
 const todoForm = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo-input");
+const addBtn = document.querySelector("#add")
+const todoDescription = document.querySelector("#descricao")
+const selector = document.querySelector("#seletor")
+const formControl = document.querySelector(".form-control")
 const todoList = document.querySelector("#todo-list");
-const editForm = document.querySelector("#edit-form");
+const editTodo = document.querySelector(".edit-todo");
 const editInput = document.querySelector("#edit-input");
 const cancelEditBtn = document.querySelector("#cancel-edit-btn");
 const searchInput = document.querySelector("#search-input");
 const eraseBtn = document.querySelector("#erase-button");
 const filterBtn = document.querySelector("#filter-select");
 let oldInputValue;
+let editarTarefa = false;
+//eventos
+document.addEventListener("DOMContentLoaded",carregarLista)
+todoForm.addEventListener("submit", saveTodo)
 //Funcoes
 
 //carregar
@@ -27,6 +35,7 @@ async function carregarLista() {
 }
 
 function exibirLista(lista) {
+    todoList.innerHTML =""
     lista.map(tarefa => {
         const todo = document.createElement("div");
         todo.classList.add("todo");
@@ -42,9 +51,9 @@ function exibirLista(lista) {
                 break;
 
         }
-        if(tarefa.estaConcluida){
+        if (tarefa.estaConcluida) {
             todo.classList.add("done")
-        }else{
+        } else {
             todo.classList.remove("done")
         }
         todo.innerHTML = `
@@ -66,39 +75,41 @@ function exibirLista(lista) {
 
 }
 
-const saveTodo = (text) => {
+async function saveTodo(e) {
+    e.preventDefault()
+    alert(`tarefa salva`)
+    const nome = todoInput.value
+    const descricao = todoDescription.value
+    const prioridade = selector.value
+    const todos = {nome, descricao, prioridade}
+    try {
+        let response;
+        if (!editarTarefa) {
+            response = await fetch(API + "/itens/cadastrar", {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/JSON"
+                },
+                body: JSON.stringify(todos)
+
+            });
+
+        }
+
+        if (!response.ok) throw new Error("erro ao carregar tarefas")
+        todoForm.reset()
+        await carregarLista()
 
 
-    /*
-        const todoTitle = document.createElement("h3");
-        todoTitle.innerText = text;
-        todo.appendChild(todoTitle);
+    } catch (error) {
+        console.error("Erro", error)
 
-        const doneBtn = document.createElement("button");
-        doneBtn.classList.add("finish-todo");
-        doneBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        todo.appendChild(doneBtn);
+    }
 
-        const editBtn = document.createElement("button");
-        editBtn.classList.add("edit-todo");
-        editBtn.innerHTML = '<i class="fa-solid fa-pen"</i>';
-        todo.appendChild(editBtn);
-
-        const removeBtn = document.createElement("button");
-        removeBtn.classList.add("remove-todo");
-        removeBtn.innerHTML = '<i class="fa-solid fa-xmark"</i>';
-        todo.appendChild(removeBtn);
-    */
-
-    todoList.appendChild(todo);
-
-    todoInput.value = " ";
-    todoInput.focus();
-};
+}
 const toggleForms = () => {
-    editForm.classList.toggle("hide");
-    todoForm.classList.toggle("hide");
-    todoList.classList.toggle("hide");
+    addBtn.classList.toggle("hide")
+    formControl.classList.toggle("hide")
 };
 const updateTodo = (text) => {
     const todos = document.querySelectorAll(".todo");
@@ -108,9 +119,9 @@ const updateTodo = (text) => {
             todoTitle.innerText = text;
         }
     });
-};
+}
 //Eventos
-document.addEventListener("DOMContentLoaded", carregarLista);
+/*
 todoForm.addEventListener("submit", (e) => {
     e.preventDefault();
     console.clear();
@@ -119,7 +130,11 @@ todoForm.addEventListener("submit", (e) => {
     if (inputData) {
         saveTodo(inputData);
     }
+
+
 });
+*/
+
 document.addEventListener("click", (e) => {
     let todoTitle;
     const targetEl = e.target;
@@ -129,8 +144,10 @@ document.addEventListener("click", (e) => {
     }
     if (targetEl.classList.contains("finish-todo")) {
         parentEl.classList.toggle("done");
+        //atualiza para o estaconcluida=true
     }
     if (targetEl.classList.contains("remove-todo")) {
+        //remove o eelemento
         parentEl.remove();
     }
     if (targetEl.classList.contains("edit-todo")) {
@@ -139,16 +156,25 @@ document.addEventListener("click", (e) => {
         toggleForms();
     }
 });
-editForm.addEventListener("submit", (e) => {
+/*
+
+editTodo.addEventListener("submit", (e) => {
     e.preventDefault();
     toggleForms();
+
     const editInputValue = editInput.value;
     if (editInputValue) {
         updateTodo(editInputValue);
     }
-});
 
+
+});
+*/
 cancelEditBtn.addEventListener("click", (e) => {
     e.preventDefault();
     toggleForms();
 });
+finishTodo.addEventListener("click", () => {
+
+})
+

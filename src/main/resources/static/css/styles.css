@@ -29,7 +29,6 @@ button {
     font-size: 1rem;
     cursor: pointer;
     justify-content: center;
-    display: flex;
     align-items: center;
     transition: 0.4s;
     border-radius: 5px;
@@ -58,9 +57,6 @@ select, textarea {
     margin-top: 2px;
 }
 
-.hide {
-    display: none;
-}
 
 /*todo-header*/
 .todo-container {
@@ -89,14 +85,15 @@ select, textarea {
     font-weight: bold;
 }
 
-.form-control {
-    display: flex;
-}
+
 
 .form-control input {
     margin-right: 0.3rem;
 }
 
+.hide {
+    display: none;
+}
 #cancel-edit-btn {
     margin-top: 1rem;
 }
@@ -165,7 +162,10 @@ select, textarea {
 .todo button {
     margin-left: 0.4rem;
 }
-
+.todo p {
+    margin-left: 10px;
+    font-size: 10px;
+}
 .done {
 
     background-color: #545892 !important;
@@ -190,11 +190,11 @@ select, textarea {
     background-color: #ff0f0f;
 
 }
-.high h3,p{
+.high h3 {
+    color: #fff;
+}
+.high p{
     color: #fff;
 }
 
-.todo p {
-    margin-left: 10px;
-    font-size: 10px;
-}
+
