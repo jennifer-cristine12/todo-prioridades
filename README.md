@@ -25,6 +25,7 @@ Diagrama de classe
 ## Endpoints
 | Método | Endpoint           | Descrição                                                       |
 |--------|--------------------|------------------------------------------------------------------|
+| GET    | `/`    | Retorna a pagina da aplicação               |
 | GET    | `/itens/listar`    | Retorna a lista completa de tarefas cadastradas                 |
 | POST   | `/itens/cadastrar` | Cadastra uma nova tarefa com os dados enviados                  |
 | GET    | `/tarefa/{id}`     | Consulta os detalhes de uma tarefa específica pelo ID           |
